@@ -64,8 +64,8 @@ optimizer = torch.optim.Adam(rnn.parameters(), lr=learning_rate)
 # Train the Model
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
-        images = Variable(images.view(-1, sequence_length, input_size)).cuda()  
-        labels = Variable(labels).cuda()
+        images = images.view(-1, sequence_length, input_size).cuda()  
+        labels = labels.cuda()
         
         # Forward + Backward + Optimize
         optimizer.zero_grad()
@@ -76,13 +76,13 @@ for epoch in range(num_epochs):
         
         if (i+1) % 100 == 0:
             print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f' 
-                   %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0]))
+                   %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data))
 
 # Test the Model
 correct = 0
 total = 0
 for images, labels in test_loader:
-    images = Variable(images.view(-1, sequence_length, input_size)).cuda()
+    images = images.view(-1, sequence_length, input_size).cuda()
     outputs = rnn(images)
     _, predicted = torch.max(outputs.data, 1)
     total += labels.size(0)
