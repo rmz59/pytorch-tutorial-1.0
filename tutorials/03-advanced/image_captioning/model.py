@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 from torch.nn.utils.rnn import pack_padded_sequence
-from torch.autograd import Variable
 
 
 class EncoderCNN(nn.Module):
@@ -24,7 +23,6 @@ class EncoderCNN(nn.Module):
     def forward(self, images):
         """Extract the image feature vectors."""
         features = self.resnet(images)
-        features = Variable(features.data)
         features = features.view(features.size(0), -1)
         features = self.bn(self.linear(features))
         return features
