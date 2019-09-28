@@ -10,10 +10,6 @@ from model import EncoderCNN, DecoderRNN
 from torch.nn.utils.rnn import pack_padded_sequence
 from torchvision import transforms
 
-def to_var(x, volatile=False):
-    if torch.cuda.is_available():
-        x = x.cuda()
-    return Variable(x, volatile=volatile)
     
 def main(args):
     # Create model directory
@@ -58,13 +54,11 @@ def main(args):
         for i, (images, captions, lengths) in enumerate(data_loader):
             
             # Set mini-batch dataset
-            images = to_var(images, volatile=True)
-            captions = to_var(captions)
+            images = images.requires_grad_(False)
             targets = pack_padded_sequence(captions, lengths, batch_first=True)[0]
             
             # Forward, Backward and Optimize
-            decoder.zero_grad()
-            encoder.zero_grad()
+            optimizer.zero_grad()
             features = encoder(images)
             outputs = decoder(features, captions, lengths)
             loss = criterion(outputs, targets)
@@ -75,7 +69,7 @@ def main(args):
             if i % args.log_step == 0:
                 print('Epoch [%d/%d], Step [%d/%d], Loss: %.4f, Perplexity: %5.4f'
                       %(epoch, args.num_epochs, i, total_step, 
-                        loss.data[0], np.exp(loss.data[0]))) 
+                        loss.data, np.exp(loss.data.item()))) 
                 
             # Save the models
             if (i+1) % args.save_step == 0:
