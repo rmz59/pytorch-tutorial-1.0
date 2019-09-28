@@ -55,8 +55,12 @@ def main(args):
             
             # Set mini-batch dataset
             images = images.requires_grad_(False)
+            if torch.cuda.is_available():
+                images = images.cuda()
+                captions = captions.cuda()
+
             targets = pack_padded_sequence(captions, lengths, batch_first=True)[0]
-            
+
             # Forward, Backward and Optimize
             optimizer.zero_grad()
             features = encoder(images)
@@ -107,7 +111,7 @@ if __name__ == '__main__':
                         help='number of layers in lstm')
     
     parser.add_argument('--num_epochs', type=int, default=5)
-    parser.add_argument('--batch_size', type=int, default=128)
+    parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--num_workers', type=int, default=2)
     parser.add_argument('--learning_rate', type=float, default=0.001)
     args = parser.parse_args()
