@@ -1,7 +1,7 @@
 <p align="center"><img width="40%" src="logo/pytorch_logo.png" /></p>
 
 --------------------------------------------------------------------------------
-**This Repo is built on Yunjey Choi's [tutorial](https://github.com/z-Runmin) for PyTorch 0.4+.** This repository provides tutorial code for deep learning researchers to learn [PyTorch 1.x](https://github.com/pytorch/pytorch). In the tutorial, most of the models were implemented with less than 30 lines of code. Before starting this tutorial, it is recommended to finish [Official Pytorch Tutorial](http://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html).
+**This Repo is built on Yunjey Choi's [tutorial](https://github.com/yunjey/pytorch-tutorial) for PyTorch 0.4+.** This repository provides tutorial code for deep learning researchers to learn [PyTorch 1.x](https://github.com/pytorch/pytorch). In the tutorial, most of the models were implemented with less than 30 lines of code. Before starting this tutorial, it is recommended to finish [Official Pytorch Tutorial](http://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html).
 
 
 <br/>
